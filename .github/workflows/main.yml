@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+jobs:
+  workflow:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Format
+        uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "."
+
+      - name: Run Tests
+        uses: pavelzw/pytest-action@v2
+        with:
+          verbose: true
+          job-summary: true
+          click-to-expand: true
+          report-title: 'Test Report'
