@@ -13,7 +13,15 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
+
+      - name: Python Setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Verify Python Version
+        run: python -c "import sys; print(sys.version)"
 
       - name: Format
         uses: psf/black@stable
@@ -23,5 +31,3 @@ jobs:
 
       - name: Run Tests
         uses: pavelzw/pytest-action@v2
-        with:
-          verbose: true
