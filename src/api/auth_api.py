@@ -16,7 +16,6 @@ class AuthAPI:
         }
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         response = self.client.post("auth", data=data, headers=headers)
-        print(response)
         if "access_token" in response:
             self.client.set_access_token(response["access_token"])
             return "Login successful"
