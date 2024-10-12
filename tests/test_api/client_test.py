@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from src.api.client import APIClient
 
 
@@ -63,6 +63,7 @@ def test_set_access_token(api_client, mock_password_handler):
 def test_clear_access_token(api_client, mock_password_handler):
     api_client.access_token = "token"
     mock_password_handler.get_password.return_value = "token"
+    mock_password_handler.delete_password.return_value = True
 
     result = api_client.clear_access_token()
 
@@ -80,6 +81,7 @@ def test_set_api_key(api_client, mock_password_handler):
 def test_clear_api_key(api_client, mock_password_handler):
     api_client.api_key = "key"
     mock_password_handler.get_password.return_value = "key"
+    mock_password_handler.delete_password.return_value = True
 
     result = api_client.clear_api_key()
 

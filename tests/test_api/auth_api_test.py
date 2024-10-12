@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from src.api.auth_api import AuthAPI
 from src.utils.helpers.validity_enum import ValidityEnum
 
