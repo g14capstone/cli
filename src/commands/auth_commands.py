@@ -1,13 +1,15 @@
 import click
 from src.commands.base import BaseCommand
 from src.api.client import APIClient
+from src.api.auth_api import AuthAPI
 from src.utils.helpers.validity_enum import ValidityEnum
 
 
 class LoginCommand(BaseCommand):
     def execute(self, email, password):
         client = APIClient()
-        result = client.auth.login(email, password)
+        endpoint = AuthAPI(client)
+        result = endpoint.login(email, password)
         if result["success"]:
             print(f"Successfully logged in. {result['data']}")
         else:
@@ -26,7 +28,8 @@ def login(ctx, email, password):
 class LogoutCommand(BaseCommand):
     def execute(self):
         client = APIClient()
-        logout_result = client.auth.logout()
+        endpoint = AuthAPI(client)
+        logout_result = endpoint.logout()
 
         if logout_result:
             print("Successfully logged out.")
@@ -46,7 +49,8 @@ def logout(ctx):
 class CreateAPIKeyCommand(BaseCommand):
     def execute(self, validity):
         client = APIClient()
-        result = client.auth.create_api_key(ValidityEnum[validity])
+        endpoint = AuthAPI(client)
+        result = endpoint.create_api_key(ValidityEnum[validity])
         if result["success"]:
             print(f"API key created successfully: {result['data']}")
         else:
@@ -68,7 +72,8 @@ def create_api_key(ctx, validity):
 class ListAPIKeysCommand(BaseCommand):
     def execute(self):
         client = APIClient()
-        result = client.auth.list_api_keys()
+        endpoint = AuthAPI(client)
+        result = endpoint.list_api_keys()
         if result["success"]:
             print("API Keys:")
             for key in result["data"]:
@@ -89,7 +94,8 @@ def list_api_keys(ctx):
 class DeleteAPIKeyCommand(BaseCommand):
     def execute(self, token):
         client = APIClient()
-        result = client.auth.delete_api_key(token)
+        endpoint = AuthAPI(client)
+        result = endpoint.delete_api_key(token)
         if result["success"]:
             print(f"API key deleted successfully. {result['data']}")
         else:
@@ -102,3 +108,38 @@ class DeleteAPIKeyCommand(BaseCommand):
 def delete_api_key(ctx, token):
     cmd = DeleteAPIKeyCommand()
     cmd.execute(token)
+
+
+class SetAPIKeyCommand(BaseCommand):
+    def execute(self, api_key):
+        client = APIClient()
+        endpoint = AuthAPI(client)
+        result = endpoint.set_api_key(api_key)
+        if result:
+            print("API key set successfully.")
+
+
+@click.command()
+@click.option("--api-key", prompt=True, hide_input=True)
+@click.pass_context
+def set_api_key(ctx, api_key):
+    cmd = SetAPIKeyCommand()
+    cmd.execute(api_key)
+
+
+class RemoveAPIKeyCommand(BaseCommand):
+    def execute(self):
+        client = APIClient()
+        endpoint = AuthAPI(client)
+        result = endpoint.clear_api_key()
+        if result:
+            print("API key removed successfully.")
+        else:
+            print("No API key was set.")
+
+
+@click.command()
+@click.pass_context
+def remove_api_key(ctx):
+    cmd = RemoveAPIKeyCommand()
+    cmd.execute()

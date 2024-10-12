@@ -33,6 +33,12 @@ class AuthAPI:
 
     def logout(self) -> bool:
         return self.client.clear_access_token()
+    
+    def set_api_key(self, api_key: str) -> None:
+        self.client.set_api_key(api_key)
+
+    def clear_api_key(self) -> bool:
+        return self.client.clear_api_key()
 
     @handle_api_errors
     def create_api_key(self, validity: ValidityEnum) -> str:
