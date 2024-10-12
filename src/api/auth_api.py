@@ -1,11 +1,3 @@
-# import os
-# import sys
-
-# # Add the parent directory of 'src' to the Python path
-# current_dir = os.path.dirname(os.path.abspath(__file__))
-# parent_dir = os.path.dirname(os.path.dirname(current_dir))
-# sys.path.append(parent_dir)
-
 from typing import Dict, List, Union
 from datetime import datetime
 from src.utils.helpers.validity_enum import ValidityEnum
@@ -52,9 +44,3 @@ class AuthAPI:
     def delete_api_key(self, token: str) -> str:
         return self.client.delete(f"auth/api_key/{token}")
 
-
-# if __name__ == "__main__":
-#     from src.api.client import APIClient
-
-#     client = APIClient()
-#     client.auth.login("shair@goat.com", "GOAT69")
