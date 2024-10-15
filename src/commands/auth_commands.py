@@ -61,7 +61,9 @@ class CreateAPIKeyCommand(BaseCommand):
 @click.option(
     "--validity",
     type=click.Choice(["ONE_HOUR", "ONE_DAY", "ONE_WEEK", "ONE_MONTH", "ONE_YEAR"]),
-    prompt=True,
+    default="ONE_DAY",
+    show_default=True,
+    prompt="Choose validity period",
 )
 @click.pass_context
 def create_api_key(ctx, validity):

@@ -10,7 +10,7 @@ To install your CLI application in editable mode, follow these steps:
 2. Navigate to the root directory of your CLI project.
 3. Run the following command:
 
-    ```sh
+    ```bash
     pip install --editable .
     ```
 
@@ -22,7 +22,7 @@ Once your CLI is installed, you can start debugging it. Here are some steps to h
 
 1. **Run the CLI Command**: Execute your CLI command in the terminal to see if it works as expected. For example, if your CLI command is `quack`, run:
 
-    ```sh
+    ```bash
     quack --help
     ```
 

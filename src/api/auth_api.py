@@ -1,11 +1,12 @@
 from typing import Dict, List, Union
 from datetime import datetime
+from src.api.client import APIClient
 from src.utils.helpers.validity_enum import ValidityEnum
 from src.utils.helpers.handle_api_errors import handle_api_errors
 
 
 class AuthAPI:
-    def __init__(self, client):
+    def __init__(self, client: APIClient):
         self.client = client
 
     @handle_api_errors
@@ -24,7 +25,7 @@ class AuthAPI:
 
     def logout(self) -> bool:
         return self.client.clear_access_token()
-    
+
     def set_api_key(self, api_key: str) -> None:
         self.client.set_api_key(api_key)
 
@@ -42,4 +43,3 @@ class AuthAPI:
     @handle_api_errors
     def delete_api_key(self, token: str) -> str:
         return self.client.delete(f"auth/api_key/{token}")
-
