@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, ANY
 from src.api.client import APIClient
 
 
@@ -88,3 +88,83 @@ def test_clear_api_key(api_client, mock_password_handler):
     assert result is True
     assert api_client.api_key is None
     mock_password_handler.delete_password.assert_called_once_with("api_key")
+
+
+def test_get_method(api_client):
+    api_client.session.request.return_value.json.return_value = {"data": "get_test"}
+    result = api_client.get(
+        "test_endpoint", params={"param": "value"}, headers={"Custom-Header": "Value"}
+    )
+    api_client.session.request.assert_called_once_with(
+        "GET",
+        f"{api_client.base_url}/test_endpoint",
+        json=None,
+        data=None,
+        params={"param": "value"},
+        headers={"Custom-Header": "Value", "X-API-Key": ANY},
+    )
+    assert result == {"data": "get_test"}
+
+
+def test_post_method(api_client):
+    api_client.session.request.return_value.json.return_value = {"data": "post_test"}
+    result = api_client.post("test_endpoint", data={"key": "value"})
+    api_client.session.request.assert_called_once_with(
+        "POST",
+        f"{api_client.base_url}/test_endpoint",
+        json={"key": "value"},
+        data=None,
+        params=None,
+        headers={"X-API-Key": ANY},
+    )
+    assert result == {"data": "post_test"}
+
+
+def test_put_method(api_client):
+    api_client.session.request.return_value.json.return_value = {"data": "put_test"}
+    result = api_client.put("test_endpoint", data={"key": "value"})
+    api_client.session.request.assert_called_once_with(
+        "PUT",
+        f"{api_client.base_url}/test_endpoint",
+        json={"key": "value"},
+        data=None,
+        params=None,
+        headers={"X-API-Key": ANY},
+    )
+    assert result == {"data": "put_test"}
+
+
+def test_delete_method(api_client):
+    api_client.session.request.return_value.json.return_value = {"data": "delete_test"}
+    result = api_client.delete("test_endpoint")
+    api_client.session.request.assert_called_once_with(
+        "DELETE",
+        f"{api_client.base_url}/test_endpoint",
+        json=None,
+        data=None,
+        params=None,
+        headers={"X-API-Key": ANY},
+    )
+    assert result == {"data": "delete_test"}
+
+
+def test_clear_access_token_returns_false_when_no_token(
+    api_client, mock_password_handler
+):
+    api_client.access_token = None
+    mock_password_handler.get_password.return_value = None
+
+    result = api_client.clear_access_token()
+
+    assert result is False
+    mock_password_handler.delete_password.assert_not_called()
+
+
+def test_clear_api_key_returns_false_when_no_key(api_client, mock_password_handler):
+    api_client.api_key = None
+    mock_password_handler.get_password.return_value = None
+
+    result = api_client.clear_api_key()
+
+    assert result is False
+    mock_password_handler.delete_password.assert_not_called()
