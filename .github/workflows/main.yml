@@ -6,21 +6,21 @@ on:
   push:
     branches: ["main"]
 
-jobs:  
-  build:  
-    runs-on: ubuntu-latest  
-    strategy:  
-      matrix:  
-        python-version: ["3.12.5"]  
-  
-    steps:  
-      - uses: actions/checkout@v3  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12.5"]
 
-      - name: Set up Python ${{ matrix.python-version }}  
-        uses: actions/setup-python@v4  
-        with:  
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
           python-version: ${{ matrix.python-version }}
-      
+
       - name: Cache Python packages
         uses: actions/cache@v2
         with:
@@ -29,20 +29,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install Dependencies  
-        run: |  
+      - name: Install Dependencies
+        run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install keyrings.alt
 
-      - name: Lint with Ruff  
-        run: |  
-          pip install ruff  
-          ruff --format=github --target-version=py310 .
-        continue-on-error: true  
+      - name: Lint with Ruff
+        run: |
+          pip install ruff
+          ruff check . --output-format=github
+        continue-on-error: true
 
       - name: Run Tests
-        run: |  
-          coverage run -m pytest  -v -s  
-      - name: Generate Coverage Report  
-        run: |  
+        run: |
+          coverage run -m pytest -v -s
+
+      - name: Generate Coverage Report
+        run: |
           coverage report -m

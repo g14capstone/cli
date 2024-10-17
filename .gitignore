@@ -1,3 +1,6 @@
 __pycache__
 .pytest_cache
 .venv
+.ruff_cache
+.env
+duckington_cli.egg-info
