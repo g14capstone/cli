@@ -44,7 +44,7 @@ source .venv/bin/activate
 ```bash
 .venv\Scripts\activate
 ```
-    
+ 
 - Git Bash:
 
 ```bash
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Install CLI application in editable mode
-   
+
 ```bash
 pip install --editable .
 ```
