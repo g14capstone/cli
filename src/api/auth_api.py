@@ -1,6 +1,6 @@
 from typing import Dict, List, Union
 from datetime import datetime
-from src.api.client import APIClient
+from src.api.api_client import APIClient
 from src.utils.helpers.validity_enum import ValidityEnum
 from src.utils.helpers.handle_api_errors import handle_api_errors
 
