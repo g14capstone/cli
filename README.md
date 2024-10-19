@@ -25,13 +25,13 @@ python3 -m pytest
 
 Follow these steps to set up a Python virtual environment using `venv`
 
-### 1. Create a new virtual environment:
+### 1. Create Virtual Environment
 
 ```bash
 python3 -m venv .venv
 ```
 
-### 2. Activate the virtual environment. The command varies based on your operating system
+### 2. Activate Virtual Environment
 
 - Linux / macOS:
 
@@ -51,7 +51,7 @@ source .venv/bin/activate
 source .venv/Scripts/activate
 ```
 
-### 3. Once the virtual environment is activated, install the necessary dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
