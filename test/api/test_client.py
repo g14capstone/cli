@@ -1,17 +1,17 @@
 import pytest
 from unittest.mock import patch, ANY
-from src.api.client import APIClient
+from src.api.api_client import APIClient
 
 
 @pytest.fixture
 def mock_password_handler():
-    with patch("src.api.client.PasswordHandler") as mock:
+    with patch("src.api.api_client.PasswordHandler") as mock:
         yield mock.return_value
 
 
 @pytest.fixture
 def api_client(mock_password_handler):
-    with patch("src.api.client.requests.Session") as mock_session:
+    with patch("src.api.api_client.requests.Session") as mock_session:
         client = APIClient()
         client.session = mock_session.return_value
         yield client
