@@ -10,5 +10,8 @@ class MachineMetricsCommand(BaseCommand):
 @click.command()
 @click.pass_context
 def machine_metrics(ctx):
+    """
+    This command is not implemented yet.
+    """
     cmd = MachineMetricsCommand()
     cmd.execute()
