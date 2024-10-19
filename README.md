@@ -3,58 +3,68 @@
 The CLI is built using [click](https://click.palletsprojects.com/en/8.1.x/). Use the following command to get started with the CLI:
 
 ```bash
-python3 main.py --help
+quack
 ```
 
 
 ## Testing
 
-pytest docs can be found [here](https://docs.pytest.org/en/stable/). See basic run instructions below (should work from root dir or test dir):
+`pytest` docs can be found [here](https://docs.pytest.org/en/stable/). See basic run instructions below, which collects all tests and runs them, with default verbosity (should work from root dir or test dir)
 
 ```bash
-# following cmds should collect all tests and run them, with default verbosity
-
-python3 -m pytest
-
-# or
-
 pytest
 ```
 
-## Setting Up the Virtual Environment
+or
 
-Follow these steps to set up a Python virtual environment using `venv`:
+```bash
+python3 -m pytest
+```
 
-1. Create a new virtual environment:
+## Setup
 
-    ```bash
-    python3 -m venv .venv
-    ```
+Follow these steps to set up a Python virtual environment using `venv`
 
-2. Activate the virtual environment. The command varies based on your operating system:
+### 1. Create Virtual Environment
 
-    - For Linux and macOS:
+```bash
+python3 -m venv .venv
+```
 
-        ```bash
-        source .venv/bin/activate
-        ```
+### 2. Activate Virtual Environment
 
-    - For Windows:
+- Linux / macOS:
 
-        ```bash
-        .venv\Scripts\activate
-        # or
-        source .venv/Scripts/activate # for git bash
-        ```
+```bash
+source .venv/bin/activate
+```
 
-3. Once the virtual environment is activated, install the necessary dependencies:
+- Windows:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+.venv\Scripts\activate
+```
+ 
+- Git Bash:
 
-4. To deactivate the venv
+```bash
+source .venv/Scripts/activate
+```
 
-    ```bash
-    deactivate
-    ```
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Install CLI application in editable mode
+
+```bash
+pip install --editable .
+```
+
+### 5. To deactivate the venv
+
+```bash
+deactivate
+```

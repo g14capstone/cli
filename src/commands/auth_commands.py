@@ -1,6 +1,6 @@
 import click
-from src.commands.base import BaseCommand
-from src.api.client import APIClient
+from src.commands.base_command import BaseCommand
+from src.api.api_client import APIClient
 from src.api.auth_api import AuthAPI
 from src.utils.helpers.validity_enum import ValidityEnum
 
