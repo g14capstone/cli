@@ -4,7 +4,7 @@ from src.commands.base_command import BaseCommand
 
 class MachineMetricsCommand(BaseCommand):
     def execute(self):
-        print(f"Function not yet supported.")
+        print("Function not yet supported.")
 
 
 @click.command()
