@@ -1,11 +1,14 @@
 import click
 
 import src.commands as commands
+from src.utils.groups.quack_group import QuackGroup
 
 
-@click.group()
-def quack():
-    """Quack CLI tool"""
+@click.group(cls=QuackGroup)
+@click.version_option(version="0.1.0")
+@click.pass_context
+def quack(ctx):
+    """A simple CLI tool to help manage your ducks."""
     pass
 
 
