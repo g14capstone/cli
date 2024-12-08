@@ -1,10 +1,21 @@
-# Command Line Interface (CLI)
+# Duckington CLI
 
-The CLI is built using [click](https://click.palletsprojects.com/en/8.1.x/). Use the following command to get started with the CLI:
+<!-- markdownlint-disable MD033 -->
+<div style="text-align: center;">
+    <img src="docs/assets/duckington.png" alt="Le Duck" width="150" height="150">
+</div>
+
+The CLI is built using [click](https://click.palletsprojects.com/en/8.1.x/).
+
+Use the following command to get started with the CLI:
 
 ```bash
-quack
+quack --help
 ```
+
+## Contributing
+
+To get started contributing to this project see the [setup](docs/setup.md) page
 
 ## Testing
 
@@ -18,52 +29,4 @@ or
 
 ```bash
 python3 -m pytest
-```
-
-## Setup
-
-Follow these steps to set up a Python virtual environment using `venv`
-
-### 1. Create Virtual Environment
-
-```bash
-python3 -m venv .venv
-```
-
-### 2. Activate Virtual Environment
-
-- Linux / macOS:
-
-```bash
-source .venv/bin/activate
-```
-
-- Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-- Git Bash:
-
-```bash
-source .venv/Scripts/activate
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Install CLI application in editable mode
-
-```bash
-pip install --editable .
-```
-
-### 5. To deactivate the venv
-
-```bash
-deactivate
 ```
