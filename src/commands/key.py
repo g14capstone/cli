@@ -1,6 +1,8 @@
 import click
+
 from src.api.api_client import APIClient
 from src.api.auth_api import AuthAPI
+from src.utils.groups.subcommand_group import SubCommandGroup
 from src.utils.helpers.validity_enum import ValidityEnum
 
 
@@ -47,10 +49,10 @@ class KeyCommands:
             print("No API key was set.")
 
 
-@click.group()
+@click.group(cls=SubCommandGroup)
 @click.pass_context
 def key(ctx):
-    """API key management."""
+    """API key management commands."""
     ctx.obj = KeyCommands()
 
 

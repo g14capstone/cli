@@ -1,5 +1,7 @@
 import click
+
 from src.api.machine_api import MachineAPI
+from src.utils.groups.subcommand_group import SubCommandGroup
 
 
 class MachineCommands:
@@ -63,7 +65,7 @@ class MachineCommands:
             click.echo("Failed to get machine. Check machine ID and try again.")
 
 
-@click.group()
+@click.group(cls=SubCommandGroup)
 @click.pass_context
 def machine(ctx):
     """Machine management commands."""
