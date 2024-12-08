@@ -6,7 +6,6 @@ The CLI is built using [click](https://click.palletsprojects.com/en/8.1.x/). Use
 quack
 ```
 
-
 ## Testing
 
 `pytest` docs can be found [here](https://docs.pytest.org/en/stable/). See basic run instructions below, which collects all tests and runs them, with default verbosity (should work from root dir or test dir)
@@ -44,7 +43,7 @@ source .venv/bin/activate
 ```bash
 .venv\Scripts\activate
 ```
- 
+
 - Git Bash:
 
 ```bash

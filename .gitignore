@@ -5,3 +5,4 @@ __pycache__
 .env
 duckington_cli.egg-info
 .coverage
+.vscode

@@ -1,11 +1,11 @@
 import pytest
 from unittest.mock import patch
 from click.testing import CliRunner
-from src.commands.auth_commands import (
+from src.commands.key import (
     login,
     logout,
-    create_api_key,
-    list_api_keys,
+    create,
+    list,
     delete_api_key,
     set_api_key,
     remove_api_key,
@@ -64,7 +64,7 @@ def test_logout_command_not_logged_in(runner, mock_auth_api):
 
 def test_create_api_key_command_success(runner, mock_auth_api):
     mock_auth_api.create_api_key.return_value = {"success": True, "data": "new_api_key"}
-    result = runner.invoke(create_api_key, ["--validity", "ONE_DAY"])
+    result = runner.invoke(create, ["--validity", "ONE_DAY"])
     assert result.exit_code == 0
     assert "API key created successfully: new_api_key" in result.output
     mock_auth_api.create_api_key.assert_called_once()
@@ -75,7 +75,7 @@ def test_create_api_key_command_failure(runner, mock_auth_api):
         "success": False,
         "message": "Failed to create API key",
     }
-    result = runner.invoke(create_api_key, ["--validity", "ONE_DAY"])
+    result = runner.invoke(create, ["--validity", "ONE_DAY"])
     assert result.exit_code == 0
     assert "Failed to create API key. Failed to create API key" in result.output
     mock_auth_api.create_api_key.assert_called_once()
@@ -87,7 +87,7 @@ def test_list_api_keys_command_success(runner, mock_auth_api):
         {"token": "key2", "created_at": "2023-01-02", "validity": "ONE_WEEK"},
     ]
     mock_auth_api.list_api_keys.return_value = {"success": True, "data": mock_api_keys}
-    result = runner.invoke(list_api_keys)
+    result = runner.invoke(list)
     assert result.exit_code == 0
     assert "Token: key1" in result.output
     assert "Token: key2" in result.output
@@ -99,7 +99,7 @@ def test_list_api_keys_command_failure(runner, mock_auth_api):
         "success": False,
         "message": "Failed to retrieve API keys",
     }
-    result = runner.invoke(list_api_keys)
+    result = runner.invoke(list)
     assert result.exit_code == 0
     assert "Failed to retrieve API keys. Failed to retrieve API keys" in result.output
     mock_auth_api.list_api_keys.assert_called_once()

@@ -1,10 +1,12 @@
 import pytest
 from click.testing import CliRunner
-from src.commands.metrics_commands import machine_metrics
+from src.commands.metrics import machine_metrics
+
 
 @pytest.fixture
 def runner():
     return CliRunner()
+
 
 def test_machine_metrics(runner):
     result = runner.invoke(machine_metrics)

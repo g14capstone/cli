@@ -1,9 +1,6 @@
 import click
-from types import ModuleType
-from typing import List
-import src.commands.auth_commands as auth_commands
-import src.commands.metrics_commands as metrics_commands
-import src.commands.machine_commands as machine_commands
+
+import src.commands as commands
 
 
 @click.group()
@@ -12,16 +9,29 @@ def quack():
     pass
 
 
-def add_commands_to_cli(modules: List[ModuleType]) -> None:
-    for mod in modules:
-        for cmd in dir(mod):
-            if isinstance(getattr(mod, cmd), click.core.Command):
-                quack.add_command(getattr(mod, cmd))
+cmds = {}
+# register all groups and only standalone commands
+for mod in commands.__all__:
+    groups = [
+        getattr(mod, attr)
+        for attr in dir(mod)
+        if isinstance(getattr(mod, attr), click.core.Group)
+    ]
+    all_cmds = [
+        getattr(mod, attr)
+        for attr in dir(mod)
+        if isinstance(getattr(mod, attr), click.core.Command)
+    ]
 
+    # Register groups and track their commands
+    for group in groups:
+        cmds.update({sub_cmd.name: sub_cmd for sub_cmd in group.commands.values()})
+        quack.add_command(group)
 
-command_modules = [auth_commands, metrics_commands, machine_commands]
-
-add_commands_to_cli(command_modules)
+    # Register standalone commands not part of any group
+    for cmd in all_cmds:
+        if cmd.name not in cmds:
+            quack.add_command(cmd)
 
 if __name__ == "__main__":
     quack()

@@ -3,7 +3,7 @@ from unittest.mock import patch
 from click.testing import CliRunner
 
 from src.api.machine_api import MachineAPI
-from src.commands.machine_commands import (
+from src.commands.machine import (
     list_machines,
     create_machine,
     start_machine,
@@ -14,7 +14,6 @@ from src.commands.machine_commands import (
 
 
 class TestMachineCommands(unittest.TestCase):
-
     def setUp(self):
         self.runner = CliRunner()
 
