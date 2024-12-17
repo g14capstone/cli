@@ -1,3 +1,4 @@
+from io import BufferedReader
 import requests
 from typing import Optional, Dict, Any
 from src.config.settings import API_BASE_URL
@@ -21,6 +22,7 @@ class APIClient:
         data: Optional[Dict[str, Any]] = None,
         params: Optional[Dict[str, Any]] = None,
         headers: Optional[Dict[str, str]] = None,
+        files: Optional[Dict[str, BufferedReader]] = None,
     ) -> Dict[str, Any]:
         url: str = f"{self.base_url}/{endpoint}"
         headers = headers or {}
@@ -37,6 +39,7 @@ class APIClient:
             data=data if endpoint == "auth" else None,
             params=params,
             headers=headers,
+            files=files,
         )
         response.raise_for_status()
         return response.json()
@@ -55,9 +58,10 @@ class APIClient:
         data: Optional[Dict[str, Any]] = None,
         params: Optional[Dict[str, Any]] = None,
         headers: Optional[Dict[str, str]] = None,
+        files: Optional[Dict[str, BufferedReader]] = None,
     ) -> Dict[str, Any]:
         return self._make_request(
-            "POST", endpoint, data=data, params=params, headers=headers
+            "POST", endpoint, data=data, params=params, headers=headers, files=files
         )
 
     def put(
@@ -66,9 +70,10 @@ class APIClient:
         data: Optional[Dict[str, Any]] = None,
         params: Optional[Dict[str, Any]] = None,
         headers: Optional[Dict[str, str]] = None,
+        files: Optional[Dict[str, str]] = None,
     ) -> Dict[str, Any]:
         return self._make_request(
-            "PUT", endpoint, data=data, params=params, headers=headers
+            "PUT", endpoint, data=data, params=params, headers=headers, files=files
         )
 
     def delete(

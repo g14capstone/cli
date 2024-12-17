@@ -9,7 +9,13 @@ def handle_api_errors(func: Callable) -> Callable:
         try:
             return {"success": True, "data": func(*args, **kwargs)}
         except HTTPError as http_err:
-            return {"success": False, "error": "HTTP error", "message": str(http_err)}
+            return {
+                "success": False,
+                "error": "HTTP error",
+                "message": str(http_err),
+                "status_code": http_err.response.status_code,
+                "response": http_err.response.json(),
+            }
         except Exception as err:
             return {"success": False, "error": "Unexpected error", "message": str(err)}
 
