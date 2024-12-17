@@ -6,7 +6,6 @@ from src.utils.groups.subcommand_group import SubCommandGroup
 class MachineMetricsCommand:
     """Commands for machine metrics."""
 
-    click.echo("Function not yet supported.")
     pass
 
 
