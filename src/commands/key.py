@@ -14,39 +14,39 @@ class KeyCommands:
     def create_api_key(self, validity):
         result = self.endpoint.create_api_key(ValidityEnum[validity])
         if result["success"]:
-            print(f"API key created successfully: {result['data']}")
+            click.echo(f"API key created successfully: {result['data']}")
         else:
-            print(f"Failed to create API key. {result['message']}")
+            click.echo(f"Failed to create API key. {result['message']}")
 
     def list_api_keys(self):
         result = self.endpoint.list_api_keys()
         if result["success"]:
-            print("API Keys:")
+            click.echo("API Keys:")
             for key in result["data"]:
-                print(
+                click.echo(
                     f"Token: {key['token']}, Created At: {key['created_at']}, Validity: {key['validity']}"
                 )
         else:
-            print(f"Failed to retrieve API keys. {result['message']}")
+            click.echo(f"Failed to retrieve API keys. {result['message']}")
 
     def delete_api_key(self, token):
         result = self.endpoint.delete_api_key(token)
         if result["success"]:
-            print(f"API key deleted successfully. {result['data']}")
+            click.echo(f"API key deleted successfully. {result['data']}")
         else:
-            print(f"Failed to delete API key. {result['message']}")
+            click.echo(f"Failed to delete API key. {result['message']}")
 
     def set_api_key(self, api_key):
         result = self.endpoint.set_api_key(api_key)
         if result:
-            print("API key set successfully.")
+            click.echo("API key set successfully.")
 
     def remove_api_key(self):
         result = self.endpoint.clear_api_key()
         if result:
-            print("API key removed successfully.")
+            click.echo("API key removed successfully.")
         else:
-            print("No API key was set.")
+            click.echo("No API key was set.")
 
 
 @click.group(cls=SubCommandGroup)

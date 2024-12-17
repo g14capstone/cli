@@ -13,9 +13,9 @@ def login(email, password):
     """Login to the application."""
     result = endpoint.login(email, password)
     if result["success"]:
-        print(f"Successfully logged in. {result['data']}")
+        click.echo(f"Successfully logged in. {result['data']}")
     else:
-        print(f"Login failed. {result['message']}")
+        click.echo(f"Login failed. {result['message']}")
 
 
 @click.command()
@@ -24,6 +24,6 @@ def logout(ctx):
     """Logout from the application."""
     result = endpoint.logout()
     if result:
-        print("Successfully logged out.")
+        click.echo("Successfully logged out.")
     else:
-        print("No action taken. You were not logged in.")
+        click.echo("No action taken. You were not logged in.")
