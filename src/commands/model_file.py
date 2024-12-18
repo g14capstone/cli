@@ -1,12 +1,16 @@
+from datetime import datetime
+
 import click
+
+from src.api.api_client import APIClient
 from src.api.model_file_api import ModelFileAPI
 from src.utils.groups.subcommand_group import SubCommandGroup
-from datetime import datetime
 
 
 class ModelFileCommands:
     def __init__(self):
-        self.endpoint = ModelFileAPI()
+        self.client = APIClient()
+        self.endpoint = ModelFileAPI(self.client)
 
     def upload(
         self,
@@ -30,6 +34,7 @@ class ModelFileCommands:
 
     def list(self):
         result = self.endpoint.get_all_models()
+        print(result)
         if result["success"]:
             if not result["data"]:
                 click.echo("No models to list.")

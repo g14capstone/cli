@@ -120,26 +120,27 @@ class TestKeyCommands(unittest.TestCase):
             self.key_commands.remove_api_key()
             mock_print.assert_called_with("No API key was set.")
 
-    def test_cli_create_command(self):
+    @patch("src.commands.key.KeyCommands", autospec=True)
+    def test_cli_create_command(self, key_commands):
         result = self.runner.invoke(key, ["create", "--validity", "ONE_DAY"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_list_command(self):
+    @patch("src.commands.key.KeyCommands", autospec=True)
+    def test_cli_list_command(self, key_commands):
         result = self.runner.invoke(key, ["list"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_delete_command(self):
+    @patch("src.commands.key.KeyCommands", autospec=True)
+    def test_cli_delete_command(self, key_commands):
         result = self.runner.invoke(key, ["delete", "--token", "test_token"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_set_command(self):
+    @patch("src.commands.key.KeyCommands", autospec=True)
+    def test_cli_set_command(self, key_commands):
         result = self.runner.invoke(key, ["set", "--api-key", "test_key"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_unset_command(self):
+    @patch("src.commands.key.KeyCommands", autospec=True)
+    def test_cli_unset_command(self, key_commands):
         result = self.runner.invoke(key, ["unset"])
         self.assertEqual(result.exit_code, 0)
-
-
-if __name__ == "__main__":
-    unittest.main()

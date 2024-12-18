@@ -117,33 +117,35 @@ class TestMachineCommands(unittest.TestCase):
             self.assertEqual(mock_print.call_count, 2)
 
     # CLI command tests
-    def test_cli_create_command(self):
+    @patch("src.commands.machine.MachineCommands", autospec=True)
+    def test_cli_create_command(self, machine_commands):
         result = self.runner.invoke(
             machine,
             ["create", "-n", "test-machine", "-t", "f1.2xlarge"],
         )
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_list_command(self):
+    @patch("src.commands.machine.MachineCommands", autospec=True)
+    def test_cli_list_command(self, machine_commands):
         result = self.runner.invoke(machine, ["list"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_start_command(self):
+    @patch("src.commands.machine.MachineCommands", autospec=True)
+    def test_cli_start_command(self, machine_commands):
         result = self.runner.invoke(machine, ["start", "--machine-id", "test123"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_stop_command(self):
+    @patch("src.commands.machine.MachineCommands", autospec=True)
+    def test_cli_stop_command(self, machine_commands):
         result = self.runner.invoke(machine, ["stop", "--machine-id", "test123"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_terminate_command(self):
+    @patch("src.commands.machine.MachineCommands", autospec=True)
+    def test_cli_terminate_command(self, machine_commands):
         result = self.runner.invoke(machine, ["terminate", "--machine-id", "test123"])
         self.assertEqual(result.exit_code, 0)
 
-    def test_cli_details_command(self):
+    @patch("src.commands.machine.MachineCommands", autospec=True)
+    def test_cli_details_command(self, machine_commands):
         result = self.runner.invoke(machine, ["details", "--machine-id", "test123"])
         self.assertEqual(result.exit_code, 0)
-
-
-if __name__ == "__main__":
-    unittest.main()

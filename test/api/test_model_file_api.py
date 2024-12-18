@@ -6,7 +6,7 @@ from src.api.model_file_api import ModelFileAPI
 
 class TestModelFileAPI(unittest.TestCase):
     def setUp(self):
-        self.api = ModelFileAPI()
+        self.api = ModelFileAPI(APIClient())
 
     @patch("builtins.open", new_callable=mock_open, read_data="test data")
     @patch.object(APIClient, "post")

@@ -6,8 +6,8 @@ from src.utils.helpers.handle_api_errors import handle_api_errors
 
 
 class ModelFileAPI:
-    def __init__(self):
-        self.client = APIClient()
+    def __init__(self, client: APIClient):
+        self.client = client
 
     @handle_api_errors
     def upload_model_file(
