@@ -27,7 +27,7 @@ class TestModelFileCommands(unittest.TestCase):
         self.mock_instance.get_all_models.return_value = {
             "success": True,
             "data": [],
-            "response": {"detail": "KYS"},
+            "response": {"detail": None},
         }
         self.mock_instance.get_model.return_value = {
             "success": True,
