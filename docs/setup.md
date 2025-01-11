@@ -8,10 +8,6 @@ Follow these steps to get started with `quack`.
 2. Install Pre-commit hooks
 3. Install `quack` as an editable module
 
-## Debugging
-
-See the [debugging](debugging.md) page for debugging help.
-
 ## Environment Setup
 
 ### 1. Create Virtual Environment
