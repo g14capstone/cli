@@ -10,7 +10,7 @@ The CLI is built using [click](https://click.palletsprojects.com/en/8.1.x/).
 Use the following command to get started with the CLI:
 
 ```bash
-quack --help
+quack
 ```
 
 ## Contributing
