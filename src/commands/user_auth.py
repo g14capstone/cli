@@ -2,8 +2,10 @@ import click
 
 from src.api.api_client import APIClient
 from src.api.auth_api import AuthAPI
+from src.api.user_api import UserAPI
 
 endpoint = AuthAPI(APIClient())
+user_endpoint = UserAPI(APIClient())
 
 
 @click.command()
@@ -27,3 +29,19 @@ def logout(ctx):
         click.echo("Successfully logged out.")
     else:
         click.echo("No action taken. You were not logged in.")
+
+
+@click.command()
+@click.option("--username", prompt=True)
+@click.option("--email", prompt=True)
+@click.option("--password", prompt=True, hide_input=True)
+def register(username, email, password):
+    """Register with Duckington Labs."""
+    result = user_endpoint.register(username, email, password)
+    if result["success"]:
+        click.echo("Welcome to Duckington Labs, you've successfully registered as:")
+        click.echo(f"  - Username: {result['data']['user_name']}")
+        click.echo(f"  - Email: {result['data']['email']}")
+        click.echo(f"  - User ID: {result['data']['user_id']}")
+    else:
+        click.echo(f"Login failed. {result['message']}")
