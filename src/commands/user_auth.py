@@ -1,3 +1,4 @@
+import subprocess
 import click
 
 from src.api.api_client import APIClient
@@ -16,13 +17,13 @@ def login(email, password):
     result = endpoint.login(email, password)
     if result["success"]:
         click.echo(f"Successfully logged in. {result['data']}")
+        subprocess.run("quack", shell=True)
     else:
         click.echo(f"Login failed. {result['message']}")
 
 
 @click.command()
-@click.pass_context
-def logout(ctx):
+def logout():
     """Logout from the application."""
     result = endpoint.logout()
     if result:
@@ -32,10 +33,11 @@ def logout(ctx):
 
 
 @click.command()
+@click.pass_context
 @click.option("--username", prompt=True)
 @click.option("--email", prompt=True)
 @click.option("--password", prompt=True, hide_input=True)
-def register(username, email, password):
+def register(ctx, username, email, password):
     """Register with Duckington Labs."""
     result = user_endpoint.register(username, email, password)
     if result["success"]:
@@ -43,5 +45,6 @@ def register(username, email, password):
         click.echo(f"  - Username: {result['data']['user_name']}")
         click.echo(f"  - Email: {result['data']['email']}")
         click.echo(f"  - User ID: {result['data']['user_id']}")
+        ctx.invoke(login, email=email, password=password)
     else:
         click.echo(f"Login failed. {result['message']}")
