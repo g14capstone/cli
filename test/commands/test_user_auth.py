@@ -4,7 +4,7 @@ from click.testing import CliRunner
 from src.commands.user_auth import login, logout
 
 
-class TestBaseCommands(unittest.TestCase):
+class TestUserAuth(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures before each test method."""
         self.runner = CliRunner()
