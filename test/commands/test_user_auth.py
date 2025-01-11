@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from click.testing import CliRunner
-from src.commands.base import login, logout
+from src.commands.user_auth import login, logout
 
 
 class TestBaseCommands(unittest.TestCase):
@@ -14,7 +14,9 @@ class TestBaseCommands(unittest.TestCase):
         self.mock_auth_api = self.patcher.start()
         self.mock_instance = self.mock_auth_api.return_value
 
-        self.endpoint = patch("src.commands.base.endpoint", self.mock_instance).start()
+        self.endpoint = patch(
+            "src.commands.user_auth.endpoint", self.mock_instance
+        ).start()
 
     def tearDown(self):
         """Clean up after each test method."""
