@@ -29,6 +29,7 @@ def test_make_request_with_api_key(api_client):
         json=None,
         data=None,
         params=None,
+        files=None,
         headers={"X-API-Key": "test_api_key"},
     )
     assert result == {"data": "test"}
@@ -47,6 +48,7 @@ def test_make_request_with_access_token(api_client):
         json={"key": "value"},
         data=None,
         params=None,
+        files=None,
         headers={"Authorization": "Bearer test_access_token"},
     )
     assert result == {"data": "test"}
@@ -102,6 +104,7 @@ def test_get_method(api_client):
         data=None,
         params={"param": "value"},
         headers={"Custom-Header": "Value", "X-API-Key": ANY},
+        files=None,
     )
     assert result == {"data": "get_test"}
 
@@ -116,6 +119,7 @@ def test_post_method(api_client):
         data=None,
         params=None,
         headers={"X-API-Key": ANY},
+        files=None,
     )
     assert result == {"data": "post_test"}
 
@@ -130,6 +134,7 @@ def test_put_method(api_client):
         data=None,
         params=None,
         headers={"X-API-Key": ANY},
+        files=None,
     )
     assert result == {"data": "put_test"}
 
@@ -144,6 +149,7 @@ def test_delete_method(api_client):
         data=None,
         params=None,
         headers={"X-API-Key": ANY},
+        files=None,
     )
     assert result == {"data": "delete_test"}
 
