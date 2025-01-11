@@ -34,7 +34,6 @@ class ModelFileCommands:
 
     def list(self):
         result = self.endpoint.get_all_models()
-        print(result)
         if result["success"]:
             if not result["data"]:
                 click.echo("No models to list.")
