@@ -13,7 +13,7 @@ class MachineAPI:
             "machine_name": machine_name,
             "machine_type": machine_type,
         }
-        response = self.client.post("machine", data=data)
+        response = self.client.post("machine/fpga", data=data)
         return response
 
     @handle_api_errors
@@ -22,16 +22,16 @@ class MachineAPI:
 
     @handle_api_errors
     def get_machine(self, machine_id: str):
-        return self.client.get(f"machines/{machine_id}")
+        return self.client.get(f"machine/{machine_id}")
 
     @handle_api_errors
     def start_machine(self, machine_id: str):
-        return self.client.post(f"machines/start/{machine_id}")
+        return self.client.post(f"machine/start/{machine_id}")
 
     @handle_api_errors
     def stop_machine(self, machine_id: str):
-        return self.client.post(f"machines/stop/{machine_id}")
+        return self.client.post(f"machine/stop/{machine_id}")
 
     @handle_api_errors
     def terminate_machine(self, machine_id: str):
-        return self.client.delete(f"machines/{machine_id}")
+        return self.client.delete(f"machine/{machine_id}")
