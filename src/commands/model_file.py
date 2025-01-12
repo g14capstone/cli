@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 
 import click
 
@@ -32,13 +33,25 @@ class ModelFileCommands:
         else:
             click.echo(f"Failed to upload model file: {result['response']['detail']}")
 
+    def list_default(self, file_path="src/models/default_models.json"):
+        click.echo("Default Models:")
+        with open(file_path, "r") as file:
+            default_models = json.load(file)
+            for model in default_models:
+                click.echo(f"  Name: {model['name']}")
+                click.echo(f"  Description: {model['description']}")
+                click.echo("  Availability:")
+                for key, value in model["available"].items():
+                    click.echo(f"    • {key}: {'Yes' if value else 'No'}")
+
     def list(self):
+        self.list_default()
         result = self.endpoint.get_all_models()
         if result["success"]:
             if not result["data"]:
                 click.echo("No models to list.")
                 return
-            click.echo("Models:")
+            click.echo("User Models:")
             for model in result["data"]:
                 click.echo(f"  Name: {model['model_name']}")
                 click.echo(f"  ID: {model['model_id']}")

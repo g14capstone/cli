@@ -87,7 +87,7 @@ class TestModelFileCommands(unittest.TestCase):
         }
         with patch("click.echo") as mock_print:
             self.model_commands.list()
-            mock_print.assert_any_call("Models:")
+            mock_print.assert_any_call("Default Models:")
 
     def test_get_model_success(self):
         with patch("click.echo") as mock_print:
