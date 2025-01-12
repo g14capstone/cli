@@ -15,7 +15,8 @@ class TestMachineAPI(unittest.TestCase):
         response = self.api.create_machine("test_machine", "type_a")
         self.assertEqual(response, {"success": True, "data": {"status": "success"}})
         mock_post.assert_called_with(
-            "machine", data={"machine_name": "test_machine", "machine_type": "type_a"}
+            "machine/fpga",
+            data={"machine_name": "test_machine", "machine_type": "type_a"},
         )
 
     @patch.object(APIClient, "get")
@@ -30,25 +31,25 @@ class TestMachineAPI(unittest.TestCase):
         mock_get.return_value = {"machine_id": "123"}
         response = self.api.get_machine("123")
         self.assertEqual(response, {"success": True, "data": {"machine_id": "123"}})
-        mock_get.assert_called_with("machines/123")
+        mock_get.assert_called_with("machine/123")
 
     @patch.object(APIClient, "post")
     def test_start_machine(self, mock_post):
         mock_post.return_value = {"status": "started"}
         response = self.api.start_machine("123")
         self.assertEqual(response, {"success": True, "data": {"status": "started"}})
-        mock_post.assert_called_with("machines/start/123")
+        mock_post.assert_called_with("machine/start/123")
 
     @patch.object(APIClient, "post")
     def test_stop_machine(self, mock_post):
         mock_post.return_value = {"status": "stopped"}
         response = self.api.stop_machine("123")
         self.assertEqual(response, {"success": True, "data": {"status": "stopped"}})
-        mock_post.assert_called_with("machines/stop/123")
+        mock_post.assert_called_with("machine/stop/123")
 
     @patch.object(APIClient, "delete")
     def test_terminate_machine(self, mock_delete):
         mock_delete.return_value = {"status": "terminated"}
         response = self.api.terminate_machine("123")
         self.assertEqual(response, {"success": True, "data": {"status": "terminated"}})
-        mock_delete.assert_called_with("machines/123")
+        mock_delete.assert_called_with("machine/123")
