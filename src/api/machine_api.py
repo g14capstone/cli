@@ -8,12 +8,36 @@ class MachineAPI:
         self.client = APIClient()
 
     @handle_api_errors
-    def create_machine(self, machine_name: str, machine_type: str) -> Dict[str, str]:
+    def create_fpga_machine(
+        self, machine_name: str, machine_type: str
+    ) -> Dict[str, str]:
         data = {
             "machine_name": machine_name,
             "machine_type": machine_type,
         }
         response = self.client.post("machine/fpga", data=data)
+        return response
+
+    @handle_api_errors
+    def create_gpu_machine(
+        self, machine_name: str, machine_type: str
+    ) -> Dict[str, str]:
+        data = {
+            "machine_name": machine_name,
+            "machine_type": machine_type,
+        }
+        response = self.client.post("machine/gpu", data=data)
+        return response
+
+    @handle_api_errors
+    def create_cpu_machine(
+        self, machine_name: str, machine_type: str
+    ) -> Dict[str, str]:
+        data = {
+            "machine_name": machine_name,
+            "machine_type": machine_type,
+        }
+        response = self.client.post("machine/cpu", data=data)
         return response
 
     @handle_api_errors

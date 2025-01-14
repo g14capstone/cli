@@ -9,6 +9,16 @@ class MachineCommands:
         self.endpoint = MachineAPI()
 
     def create(self, machine_name, machine_type):
+        """
+        create create a machine with name and type.
+
+        :param machine_name: descriptor of machine
+        :type machine_name:  str
+        :param machine_type: GPU: [g4dn.xlarge]
+                             FPGA: [f1.2xlarge, f1.4xlarge, f1.16xlarge]
+                             CPU: [t2.micro, m5.xlarge, m5.2xlarge]
+        :type machine_type:  TBD
+        """
         click.echo("\nAttempting to create machine...\n")
         result = self.endpoint.create_machine(machine_name, machine_type)
         if result["success"]:
