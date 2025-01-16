@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 
 import click
+import click_spinner
 
 from src.api.api_client import APIClient
 from src.api.model_file_api import ModelFileAPI
@@ -20,7 +21,8 @@ class ModelFileCommands:
         model_id: str | None = None,
     ):
         click.echo("\nAttempting to upload model file...\n")
-        result = self.endpoint.upload_model_file(model_name, model_id, file_path)
+        with click_spinner.spinner():
+            result = self.endpoint.upload_model_file(model_name, model_id, file_path)
         if result["success"]:
             upload_date = datetime.strptime(
                 result["data"]["upload_date"], "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -45,8 +47,9 @@ class ModelFileCommands:
                     click.echo(f"    • {key}: {'Yes' if value else 'No'}")
 
     def list(self):
+        with click_spinner.spinner():
+            result = self.endpoint.get_all_models()
         self.list_default()
-        result = self.endpoint.get_all_models()
         if result["success"]:
             if not result["data"]:
                 click.echo("No models to list.")
@@ -70,7 +73,8 @@ class ModelFileCommands:
             click.echo(f"Failed to list models: {result['response']['detail']}")
 
     def get_model(self, model_id):
-        result = self.endpoint.get_model(model_id)
+        with click_spinner.spinner():
+            result = self.endpoint.get_model(model_id)
         if result["success"]:
             click.echo(f"Name: {result['data']['model_name']}")
             click.echo(f"ID: {result['data']['model_id']}")
@@ -88,7 +92,8 @@ class ModelFileCommands:
             click.echo(f"Failed to get model. {result['response']['detail']}")
 
     def read_file(self, model_id, file_name):
-        result = self.endpoint.read_model_file(model_id, file_name)
+        with click_spinner.spinner():
+            result = self.endpoint.read_model_file(model_id, file_name)
         if result["success"]:
             click.echo(f"File contents for {file_name}:")
             click.echo(result["data"]["content"])
@@ -102,9 +107,10 @@ class ModelFileCommands:
         model_id: str | None = None,
     ):
         click.echo("\nAttempting to update model file...\n")
-        result = self.endpoint.update_model_file(
-            model_name=model_name, model_id=model_id, file_path=file_path
-        )
+        with click_spinner.spinner():
+            result = self.endpoint.update_model_file(
+                model_name=model_name, model_id=model_id, file_path=file_path
+            )
         if result["success"]:
             upload_date = datetime.strptime(
                 result["data"]["upload_date"], "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -119,7 +125,8 @@ class ModelFileCommands:
 
     def delete_file(self, model_id, file_name):
         click.echo("\nAttempting to delete model file...\n")
-        result = self.endpoint.delete_model_file(model_id, file_name)
+        with click_spinner.spinner():
+            result = self.endpoint.delete_model_file(model_id, file_name)
         if result["success"] and result["data"] is None:
             click.echo(f"Model file {file_name} deleted successfully")
         else:
@@ -127,7 +134,8 @@ class ModelFileCommands:
 
     def delete_model(self, model_id):
         click.echo("\nAttempting to delete model...\n")
-        result = self.endpoint.delete_model(model_id)
+        with click_spinner.spinner():
+            result = self.endpoint.delete_model(model_id)
         if result["success"] and result["data"] is None:
             click.echo(f"Model {model_id} deleted successfully")
         else:

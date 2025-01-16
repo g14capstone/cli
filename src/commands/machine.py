@@ -110,7 +110,8 @@ class MachineCommands:
             click.echo("Failed to get inference URL. Check machine ID and try again.")
 
     def list(self):
-        result = self.endpoint.list_user_machines()
+        with click_spinner.spinner():
+            result = self.endpoint.list_user_machines()
         if result["success"]:
             if not result["data"]:
                 click.echo("No machines to list.")
@@ -124,7 +125,8 @@ class MachineCommands:
 
     def stop(self, machine_id):
         click.echo("\nAttempting to stop machine...\n")
-        result = self.endpoint.stop_machine(machine_id)
+        with click_spinner.spinner():
+            result = self.endpoint.stop_machine(machine_id)
         if result["success"]:
             click.echo(f"{result['data']['message']}")
         else:
@@ -132,7 +134,8 @@ class MachineCommands:
 
     def start(self, machine_id):
         click.echo("\nAttempting to start machine...\n")
-        result = self.endpoint.start_machine(machine_id)
+        with click_spinner.spinner():
+            result = self.endpoint.start_machine(machine_id)
         if result["success"]:
             click.echo(f"{result['data']['message']}")
         else:
@@ -140,14 +143,16 @@ class MachineCommands:
 
     def terminate(self, machine_id):
         click.echo("\nAttempting to terminate machine...\n")
-        result = self.endpoint.terminate_machine(machine_id)
+        with click_spinner.spinner():
+            result = self.endpoint.terminate_machine(machine_id)
         if result["success"]:
             click.echo(f"{result['data']['message']}")
         else:
             click.echo("Failed to terminate machine. Check machine ID and try again.")
 
     def get_details(self, machine_id):
-        result = self.endpoint.get_machine(machine_id)
+        with click_spinner.spinner():
+            result = self.endpoint.get_machine(machine_id)
         if result["success"]:
             click.echo(f"Machine {machine_id} details:")
             click.echo(json.dumps(result["data"], indent=2))
