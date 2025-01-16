@@ -20,6 +20,10 @@ class MachineAPI:
         response = self.client.post("machine/fpga", data=data)
         return response
 
+    @handle_api_errors
+    def get_fpga_inference_url(self, machine_id: str) -> Dict[str, str]:
+        return self.client.get(f"machine/fpga/{machine_id}/inference_url")
+
     """GPU REQUESTS"""
 
     @handle_api_errors

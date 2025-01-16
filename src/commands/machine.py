@@ -55,7 +55,7 @@ class MachineCommands:
                 case "GPU":
                     result = self.endpoint.pull_gpu_model(machine_id, model_name)
                 case "FPGA":
-                    click.secho("FPGA pull model not implemented.", fg="red")
+                    click.secho("FPGA pull model not supported yet.", fg="yellow")
                     return
                 case "CPU":
                     result = self.endpoint.pull_cpu_model(machine_id, model_name)
@@ -77,7 +77,7 @@ class MachineCommands:
                 case "GPU":
                     result = self.endpoint.delete_gpu_model(machine_id, model_name)
                 case "FPGA":
-                    click.secho("FPGA delete model not implemented.", fg="red")
+                    click.secho("FPGA delete model not supported yet.", fg="yellow")
                     return
                 case "CPU":
                     result = self.endpoint.delete_cpu_model(machine_id, model_name)
@@ -97,8 +97,7 @@ class MachineCommands:
                 case "GPU":
                     result = self.endpoint.get_gpu_inference_url(machine_id)
                 case "FPGA":
-                    click.secho("FPGA inference URL not implemented.", fg="red")
-                    return
+                    result = self.endpoint.get_fpga_inference_url(machine_id)
                 case "CPU":
                     result = self.endpoint.get_cpu_inference_url(machine_id)
                 case _:
