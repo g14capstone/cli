@@ -18,7 +18,7 @@
         "description": "Meta's Llama 2"
     },
     {
-        "name": "smollm:135b",
+        "name": "smollm:135m",
         "available": {
             "FPGA": false,
             "GPU": true,

@@ -36,8 +36,8 @@ class MachineAPI:
     @handle_api_errors
     def pull_gpu_model(self, machine_id: str, model_name: str) -> Dict[str, str]:
         data = {
-            "machine_name": machine_id,
-            "machine_type": model_name,
+            "machine_id": machine_id,
+            "model_name": model_name,
         }
         response = self.client.post("machine/gpu/pull_model", data=data)
         return response
@@ -45,8 +45,8 @@ class MachineAPI:
     @handle_api_errors
     def delete_gpu_model(self, machine_id: str, model_name: str) -> Dict[str, str]:
         data = {
-            "machine_name": machine_id,
-            "machine_type": model_name,
+            "machine_id": machine_id,
+            "model_name": model_name,
         }
         response = self.client.delete("machine/gpu/model", data=data)
         return response
@@ -71,8 +71,8 @@ class MachineAPI:
     @handle_api_errors
     def pull_cpu_model(self, machine_id: str, model_name: str) -> Dict[str, str]:
         data = {
-            "machine_name": machine_id,
-            "machine_type": model_name,
+            "machine_id": machine_id,
+            "model_name": model_name,
         }
         response = self.client.post("machine/cpu/pull_model", data=data)
         return response
@@ -80,8 +80,8 @@ class MachineAPI:
     @handle_api_errors
     def delete_cpu_model(self, machine_id: str, model_name: str) -> Dict[str, str]:
         data = {
-            "machine_name": machine_id,
-            "machine_type": model_name,
+            "machine_id": machine_id,
+            "model_name": model_name,
         }
         response = self.client.delete("machine/cpu/model", data=data)
         return response

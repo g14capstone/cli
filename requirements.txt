@@ -26,3 +26,4 @@ zipp==3.20.2
 pre_commit==4.0.1
 rich==13.9.4
 pyfiglet==1.0.2
+click-spinner==0.1.10
