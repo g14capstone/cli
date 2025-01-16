@@ -192,11 +192,7 @@ def create(ctx, hardware_type, machine_name, machine_type):
         )
         return
 
-    ctx.obj.create(
-        hardware_type=hardware_type,
-        machine_name=machine_name,
-        machine_type=machine_type,
-    )
+    ctx.obj.create(hardware_type, machine_name, machine_type)
 
 
 @machine.command()
