@@ -2,36 +2,36 @@
     {
         "name": "llama3:8b",
         "available": {
-            "FPGA": false,
-            "GPU": true,
-            "CPU": false
+            "fpga": false,
+            "gpu": true,
+            "cpu": false
         },
         "description": "Meta's Llama 3"
     },
     {
         "name": "llama2:7b",
         "available": {
-            "FPGA": false,
-            "GPU": true,
-            "CPU": true
+            "fpga": false,
+            "gpu": true,
+            "cpu": true
         },
         "description": "Meta's Llama 2"
     },
     {
         "name": "smollm:135m",
         "available": {
-            "FPGA": false,
-            "GPU": true,
-            "CPU": true
+            "fpga": false,
+            "gpu": true,
+            "cpu": true
         },
         "description": "Small Language Model"
     },
     {
         "name": "tinyllamas-stories-110m",
         "available": {
-            "FPGA": true,
-            "GPU": true,
-            "CPU": true
+            "fpga": true,
+            "gpu": true,
+            "cpu": true
         },
         "description": "kparthy's Tiny Llama Stories"
     }

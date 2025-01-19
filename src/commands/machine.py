@@ -7,8 +7,14 @@ from src.api.machine_api import MachineAPI
 from src.utils.groups.subcommand_group import SubCommandGroup
 
 
+machine_types = ["cpu", "gpu", "fpga"]
+
+
 class MachineCommands:
     def __init__(self):
+        self.cpu = machine_types[0]
+        self.gpu = machine_types[1]
+        self.fpga = machine_types[2]
         self.endpoint = MachineAPI()
 
     def create(self, hardware_type, machine_name, machine_type):
@@ -24,15 +30,15 @@ class MachineCommands:
         """
         with click_spinner.spinner():
             match hardware_type:
-                case "GPU":
+                case self.gpu:
                     result = self.endpoint.create_gpu_machine(
                         machine_name, machine_type
                     )
-                case "FPGA":
+                case self.fpga:
                     result = self.endpoint.create_fpga_machine(
                         machine_name, machine_type
                     )
-                case "CPU":
+                case self.cpu:
                     result = self.endpoint.create_cpu_machine(
                         machine_name, machine_type
                     )
@@ -52,12 +58,12 @@ class MachineCommands:
         click.echo(f"Pulling model {model_name} for machine {machine_id}")
         with click_spinner.spinner():
             match hardware_type:
-                case "GPU":
+                case self.gpu:
                     result = self.endpoint.pull_gpu_model(machine_id, model_name)
-                case "FPGA":
+                case self.fpga:
                     click.secho("FPGA pull model not supported yet.", fg="yellow")
                     return
-                case "CPU":
+                case self.cpu:
                     result = self.endpoint.pull_cpu_model(machine_id, model_name)
                 case _:
                     click.echo("Invalid hardware type.")
@@ -74,12 +80,12 @@ class MachineCommands:
         click.echo(f"Deleting model {model_name} for machine {machine_id}")
         with click_spinner.spinner():
             match hardware_type:
-                case "GPU":
+                case self.gpu:
                     result = self.endpoint.delete_gpu_model(machine_id, model_name)
-                case "FPGA":
+                case self.fpga:
                     click.secho("FPGA delete model not supported yet.", fg="yellow")
                     return
-                case "CPU":
+                case self.cpu:
                     result = self.endpoint.delete_cpu_model(machine_id, model_name)
                 case _:
                     click.echo("Invalid hardware type.")
@@ -94,11 +100,11 @@ class MachineCommands:
     def get_inference_url(self, hardware_type, machine_id):
         with click_spinner.spinner():
             match hardware_type:
-                case "GPU":
+                case self.gpu:
                     result = self.endpoint.get_gpu_inference_url(machine_id)
-                case "FPGA":
+                case self.fpga:
                     result = self.endpoint.get_fpga_inference_url(machine_id)
-                case "CPU":
+                case self.cpu:
                     result = self.endpoint.get_cpu_inference_url(machine_id)
                 case _:
                     click.echo("Invalid hardware type.")
@@ -170,7 +176,7 @@ def machine(ctx):
 
 @machine.command()
 @click.pass_context
-@click.argument("hardware-type", type=click.Choice(["CPU", "GPU", "FPGA"]))
+@click.argument("hardware-type", type=click.Choice(machine_types))
 @click.option("--machine-name", "-n", required=True, prompt="Enter machine name")
 @click.option("--machine-type", "-t", required=True, prompt="Choose machine type")
 def create(ctx, hardware_type, machine_name, machine_type):
@@ -185,9 +191,9 @@ def create(ctx, hardware_type, machine_name, machine_type):
     - FPGA: \t[f1.2xlarge, f1.4xlarge, f1.16xlarge]
     """
     valid_machine_types = {
-        "GPU": ["g4dn.xlarge"],
-        "FPGA": ["f1.2xlarge", "f1.4xlarge", "f1.16xlarge"],
-        "CPU": ["t2.micro", "m5.xlarge", "m5.2xlarge"],
+        "gpu": ["g4dn.xlarge"],
+        "fpga": ["f1.2xlarge", "f1.4xlarge", "f1.16xlarge"],
+        "cpu": ["t2.micro", "m5.xlarge", "m5.2xlarge"],
     }
 
     if machine_type not in valid_machine_types[hardware_type]:
@@ -202,7 +208,7 @@ def create(ctx, hardware_type, machine_name, machine_type):
 
 @machine.command()
 @click.pass_context
-@click.argument("hardware-type", type=click.Choice(["CPU", "GPU", "FPGA"]))
+@click.argument("hardware-type", type=click.Choice(machine_types))
 @click.option("--machine-id", "-id", required=True, prompt="Enter machine ID")
 @click.option("--model-name", "-m", required=True, prompt="Enter model name")
 def pull_model(ctx, hardware_type, machine_id, model_name):
@@ -226,7 +232,7 @@ def pull_model(ctx, hardware_type, machine_id, model_name):
 
 @machine.command()
 @click.pass_context
-@click.argument("hardware-type", type=click.Choice(["CPU", "GPU", "FPGA"]))
+@click.argument("hardware-type", type=click.Choice(machine_types))
 @click.option("--machine-id", "-id", required=True, prompt="Enter machine ID")
 @click.option("--model-name", "-m", required=True, prompt="Enter model name")
 def delete_model(ctx, hardware_type, machine_id, model_name):
@@ -236,7 +242,7 @@ def delete_model(ctx, hardware_type, machine_id, model_name):
 
 @machine.command()
 @click.pass_context
-@click.argument("hardware-type", type=click.Choice(["CPU", "GPU", "FPGA"]))
+@click.argument("hardware-type", type=click.Choice(machine_types))
 @click.option("--machine-id", "-id", required=True, prompt="Enter machine ID")
 def infer_url(ctx, hardware_type, machine_id):
     """Get inference URL for machine with machine ID."""
