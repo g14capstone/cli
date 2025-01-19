@@ -78,7 +78,7 @@ class TestNewMachineCommands(unittest.TestCase):
 
     def test_create_gpu_machine_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.create("GPU", "test-machine", "g4dn.xlarge")
+            self.machine_commands.create("gpu", "test-machine", "g4dn.xlarge")
             mock_print.assert_any_call("Machine created successfully. Details:")
             mock_print.assert_any_call(
                 json.dumps(
@@ -88,7 +88,7 @@ class TestNewMachineCommands(unittest.TestCase):
 
     def test_create_fpga_machine_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.create("FPGA", "test-machine", "f1.2xlarge")
+            self.machine_commands.create("fpga", "test-machine", "f1.2xlarge")
             mock_print.assert_any_call("Machine created successfully. Details:")
             mock_print.assert_any_call(
                 json.dumps(
@@ -99,7 +99,7 @@ class TestNewMachineCommands(unittest.TestCase):
 
     def test_create_cpu_machine_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.create("CPU", "test-machine", "t2.micro")
+            self.machine_commands.create("cpu", "test-machine", "t2.micro")
             mock_print.assert_any_call("Machine created successfully. Details:")
             mock_print.assert_any_call(
                 json.dumps(
@@ -110,7 +110,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_create_gpu_machine_failure(self):
         self.mock_instance.create_gpu_machine.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.create("GPU", "test-machine", "g4dn.xlarge")
+            self.machine_commands.create("gpu", "test-machine", "g4dn.xlarge")
             mock_print.assert_called_with(
                 "Failed to create machine. Check machine name and type and try again."
             )
@@ -118,7 +118,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_create_fpga_machine_failure(self):
         self.mock_instance.create_fpga_machine.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.create("FPGA", "test-machine", "f1.2xlarge")
+            self.machine_commands.create("fpga", "test-machine", "f1.2xlarge")
             mock_print.assert_called_with(
                 "Failed to create machine. Check machine name and type and try again."
             )
@@ -126,7 +126,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_create_cpu_machine_failure(self):
         self.mock_instance.create_cpu_machine.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.create("CPU", "test-machine", "t2.micro")
+            self.machine_commands.create("cpu", "test-machine", "t2.micro")
             mock_print.assert_called_with(
                 "Failed to create machine. Check machine name and type and try again."
             )
@@ -138,17 +138,17 @@ class TestNewMachineCommands(unittest.TestCase):
 
     def test_pull_gpu_model_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.pull_model("GPU", "test123", "test-model")
+            self.machine_commands.pull_model("gpu", "test123", "test-model")
             mock_print.assert_called_with("Model test-model pulled successfully.")
 
     def test_pull_cpu_model_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.pull_model("CPU", "test123", "test-model")
+            self.machine_commands.pull_model("cpu", "test123", "test-model")
             mock_print.assert_called_with("Model test-model pulled successfully.")
 
     def test_pull_fpga_model_not_supported(self):
         with patch("click.secho") as mock_print:
-            self.machine_commands.pull_model("FPGA", "test123", "test-model")
+            self.machine_commands.pull_model("fpga", "test123", "test-model")
             mock_print.assert_called_with(
                 "FPGA pull model not supported yet.", fg="yellow"
             )
@@ -156,7 +156,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_pull_gpu_model_failure(self):
         self.mock_instance.pull_gpu_model.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.pull_model("GPU", "test123", "test-model")
+            self.machine_commands.pull_model("gpu", "test123", "test-model")
             mock_print.assert_called_with(
                 "Failed to pull model. Check machine ID and model name and try again."
             )
@@ -164,7 +164,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_pull_cpu_model_failure(self):
         self.mock_instance.pull_cpu_model.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.pull_model("CPU", "test123", "test-model")
+            self.machine_commands.pull_model("cpu", "test123", "test-model")
             mock_print.assert_called_with(
                 "Failed to pull model. Check machine ID and model name and try again."
             )
@@ -176,17 +176,17 @@ class TestNewMachineCommands(unittest.TestCase):
 
     def test_delete_gpu_model_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.delete_machine_model("GPU", "test123", "test-model")
+            self.machine_commands.delete_machine_model("gpu", "test123", "test-model")
             mock_print.assert_called_with("Model test-model deleted successfully.")
 
     def test_delete_cpu_model_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.delete_machine_model("CPU", "test123", "test-model")
+            self.machine_commands.delete_machine_model("cpu", "test123", "test-model")
             mock_print.assert_called_with("Model test-model deleted successfully.")
 
     def test_delete_fpga_model_not_supported(self):
         with patch("click.secho") as mock_print:
-            self.machine_commands.delete_machine_model("FPGA", "test123", "test-model")
+            self.machine_commands.delete_machine_model("fpga", "test123", "test-model")
             mock_print.assert_called_with(
                 "FPGA delete model not supported yet.", fg="yellow"
             )
@@ -194,7 +194,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_delete_gpu_model_failure(self):
         self.mock_instance.delete_gpu_model.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.delete_machine_model("GPU", "test123", "test-model")
+            self.machine_commands.delete_machine_model("gpu", "test123", "test-model")
             mock_print.assert_called_with(
                 "Failed to delete model. Check machine ID and model name and try again."
             )
@@ -202,7 +202,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_delete_cpu_model_failure(self):
         self.mock_instance.delete_cpu_model.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.delete_machine_model("CPU", "test123", "test-model")
+            self.machine_commands.delete_machine_model("cpu", "test123", "test-model")
             mock_print.assert_called_with(
                 "Failed to delete model. Check machine ID and model name and try again."
             )
@@ -216,12 +216,12 @@ class TestNewMachineCommands(unittest.TestCase):
 
     def test_get_gpu_inference_url_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.get_inference_url("GPU", "test123")
+            self.machine_commands.get_inference_url("gpu", "test123")
             mock_print.assert_called_with("Inference URL: http://gpu-inference-url")
 
     def test_get_cpu_inference_url_success(self):
         with patch("click.echo") as mock_print:
-            self.machine_commands.get_inference_url("CPU", "test123")
+            self.machine_commands.get_inference_url("cpu", "test123")
             mock_print.assert_called_with("Inference URL: http://cpu-inference-url")
 
     def test_get_fpga_inference_url_success(self):
@@ -230,7 +230,7 @@ class TestNewMachineCommands(unittest.TestCase):
             "data": {"inference_url": "http://fpga-inference-url"},
         }
         with patch("click.echo") as mock_print:
-            self.machine_commands.get_inference_url("FPGA", "test123")
+            self.machine_commands.get_inference_url("fpga", "test123")
             mock_print.assert_called_with("Inference URL: http://fpga-inference-url")
 
     def test_get_inference_url_invalid_hardware_type(self):
@@ -241,7 +241,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_get_cpu_inference_url_failure(self):
         self.mock_instance.get_cpu_inference_url.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.get_inference_url("CPU", "test123")
+            self.machine_commands.get_inference_url("cpu", "test123")
             mock_print.assert_called_with(
                 "Failed to get inference URL. Check machine ID and try again."
             )
@@ -249,7 +249,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_get_fpga_inference_url_failure(self):
         self.mock_instance.get_fpga_inference_url.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.get_inference_url("FPGA", "test123")
+            self.machine_commands.get_inference_url("fpga", "test123")
             mock_print.assert_called_with(
                 "Failed to get inference URL. Check machine ID and try again."
             )
@@ -257,7 +257,7 @@ class TestNewMachineCommands(unittest.TestCase):
     def test_get_gpu_inference_url_failure(self):
         self.mock_instance.get_gpu_inference_url.return_value = {"success": False}
         with patch("click.echo") as mock_print:
-            self.machine_commands.get_inference_url("GPU", "test123")
+            self.machine_commands.get_inference_url("gpu", "test123")
             mock_print.assert_called_with(
                 "Failed to get inference URL. Check machine ID and try again."
             )
@@ -386,7 +386,7 @@ class TestMachineCommandsInvoke(unittest.TestCase):
             machine,
             [
                 "create",
-                "GPU",
+                "gpu",
                 "--machine-name",
                 "test-machine",
                 "--machine-type",
@@ -394,7 +394,7 @@ class TestMachineCommandsInvoke(unittest.TestCase):
             ],
         )
         self.assertEqual(result.exit_code, 0)
-        mock_create.assert_called_once_with("GPU", "test-machine", "g4dn.xlarge")
+        mock_create.assert_called_once_with("gpu", "test-machine", "g4dn.xlarge")
 
     @patch("src.commands.machine.MachineCommands.create")
     def test_create_failure_command(self, mock_create):
@@ -403,7 +403,7 @@ class TestMachineCommandsInvoke(unittest.TestCase):
             machine,
             [
                 "create",
-                "GPU",
+                "gpu",
                 "--machine-name",
                 "test-machine",
                 "--machine-type",
@@ -418,14 +418,14 @@ class TestMachineCommandsInvoke(unittest.TestCase):
         with patch(
             "builtins.open",
             unittest.mock.mock_open(
-                read_data='[{"name": "test-model", "available": {"GPU": true}}]'
+                read_data='[{"name": "test-model", "available": {"gpu": true}}]'
             ),
         ):
             result = self.runner.invoke(
                 machine,
                 [
                     "pull-model",
-                    "GPU",
+                    "gpu",
                     "--machine-id",
                     "test123",
                     "--model-name",
@@ -433,21 +433,21 @@ class TestMachineCommandsInvoke(unittest.TestCase):
                 ],
             )
         self.assertEqual(result.exit_code, 0)
-        mock_pull_model.assert_called_once_with("GPU", "test123", "test-model")
+        mock_pull_model.assert_called_once_with("gpu", "test123", "test-model")
 
     @patch("src.commands.machine.MachineCommands.pull_model")
     def test_pull_model_failure_command(self, mock_pull_model):
         with patch(
             "builtins.open",
             unittest.mock.mock_open(
-                read_data='[{"name": "test-model", "available": {"GPU": false}}]'
+                read_data='[{"name": "test-model", "available": {"gpu": false}}]'
             ),
         ):
             result = self.runner.invoke(
                 machine,
                 [
                     "pull-model",
-                    "GPU",
+                    "gpu",
                     "--machine-id",
                     "test123",
                     "--model-name",
@@ -463,7 +463,7 @@ class TestMachineCommandsInvoke(unittest.TestCase):
             machine,
             [
                 "delete-model",
-                "GPU",
+                "gpu",
                 "--machine-id",
                 "test123",
                 "--model-name",
@@ -471,7 +471,7 @@ class TestMachineCommandsInvoke(unittest.TestCase):
             ],
         )
         self.assertEqual(result.exit_code, 0)
-        mock_delete_model.assert_called_once_with("GPU", "test123", "test-model")
+        mock_delete_model.assert_called_once_with("gpu", "test123", "test-model")
 
     @patch("src.commands.machine.MachineCommands.get_inference_url")
     def test_infer_url_command(self, mock_get_inference_url):
@@ -479,13 +479,13 @@ class TestMachineCommandsInvoke(unittest.TestCase):
             machine,
             [
                 "infer-url",
-                "GPU",
+                "gpu",
                 "--machine-id",
                 "test123",
             ],
         )
         self.assertEqual(result.exit_code, 0)
-        mock_get_inference_url.assert_called_once_with("GPU", "test123")
+        mock_get_inference_url.assert_called_once_with("gpu", "test123")
 
     @patch("src.commands.machine.MachineCommands.list")
     def test_list_command(self, mock_list):
