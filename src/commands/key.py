@@ -1,4 +1,5 @@
 import click
+import click_spinner
 
 from src.api.api_client import APIClient
 from src.api.auth_api import AuthAPI
@@ -12,14 +13,16 @@ class KeyCommands:
         self.endpoint = AuthAPI(self.client)
 
     def create_api_key(self, validity):
-        result = self.endpoint.create_api_key(ValidityEnum[validity])
+        with click_spinner.spinner():
+            result = self.endpoint.create_api_key(ValidityEnum[validity])
         if result["success"]:
             click.echo(f"API key created successfully: {result['data']}")
         else:
             click.echo(f"Failed to create API key. {result['message']}")
 
     def list_api_keys(self):
-        result = self.endpoint.list_api_keys()
+        with click_spinner.spinner():
+            result = self.endpoint.list_api_keys()
         if result["success"]:
             click.echo("API Keys:")
             for key in result["data"]:
@@ -30,19 +33,22 @@ class KeyCommands:
             click.echo(f"Failed to retrieve API keys. {result['message']}")
 
     def delete_api_key(self, token):
-        result = self.endpoint.delete_api_key(token)
+        with click_spinner.spinner():
+            result = self.endpoint.delete_api_key(token)
         if result["success"]:
             click.echo(f"API key deleted successfully. {result['data']}")
         else:
             click.echo(f"Failed to delete API key. {result['message']}")
 
     def set_api_key(self, api_key):
-        result = self.endpoint.set_api_key(api_key)
+        with click_spinner.spinner():
+            result = self.endpoint.set_api_key(api_key)
         if result:
             click.echo("API key set successfully.")
 
     def remove_api_key(self):
-        result = self.endpoint.clear_api_key()
+        with click_spinner.spinner():
+            result = self.endpoint.clear_api_key()
         if result:
             click.echo("API key removed successfully.")
         else:

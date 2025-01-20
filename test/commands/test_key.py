@@ -70,7 +70,7 @@ class TestKeyCommands(unittest.TestCase):
 
         with patch("click.echo") as mock_print:
             self.key_commands.list_api_keys()
-            self.assertEqual(mock_print.call_count, 3)  # Header + 2 keys
+            self.assertEqual(mock_print.call_count, 3)
 
     def test_list_api_keys_empty(self):
         self.mock_instance.list_api_keys.return_value = {"success": True, "data": []}

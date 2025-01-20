@@ -30,16 +30,3 @@ class SubFrameFormatter(HelpFormatterBase):
         for opt, desc in options:
             self.main_table.add_row(f"{self.item_padding}[magenta]{opt:<15}[/] {desc}")
         self.main_table.add_row()
-
-    def format_commands(self, commands: dict, title: str) -> None:
-        self.add_section_header(title)
-        prefix = "❯" if title == "COMMANDS" else "▶"
-
-        for name, cmd in sorted(commands.items()):
-            self.main_table.add_row(
-                f"{self.item_padding}{prefix} [green]{name:<13}[/] {cmd.help or ''}"
-            )
-
-    def render(self) -> None:
-        if self.main_table:
-            self.console.print(self.main_table)
