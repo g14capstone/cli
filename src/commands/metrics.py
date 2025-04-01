@@ -12,5 +12,5 @@ class MachineMetricsCommand:
 @click.group(cls=SubCommandGroup)
 @click.pass_context
 def metrics(ctx):
-    """Function not yet supported."""
+    """Machine metrics and analytics."""
     ctx.obj = MachineMetricsCommand()
